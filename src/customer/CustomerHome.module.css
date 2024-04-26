@@ -1,0 +1,49 @@
+
+.heading {
+    font-family: sans-serif;
+    color: #FF6347;
+    font-weight: bold;
+    font-size: 35px;
+    text-decoration: underline;
+  }
+  
+  .masonry {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 0;
+    grid-auto-flow: dense;
+    gap: 20px;
+  }
+  
+  .item {
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  
+  .item img {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .item h2 {
+    margin: 10px 0;
+  }
+  
+  .item p {
+    margin: 0;
+  }
+  
+  .showMore {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .showMoreButton {
+    text-decoration: none;
+    background-color: #FF6347;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+  }
+  

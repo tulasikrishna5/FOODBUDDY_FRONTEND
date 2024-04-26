@@ -1,0 +1,43 @@
+
+
+.tableContainer {
+  text-align: center;
+}
+
+.customTable {
+  width: auto;
+  height: auto;
+  background-color: coral;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden; 
+}
+
+.customTable th,
+.customTable td {
+  padding: 10px;
+}
+
+.customTable th {
+  background-color: #ffa07a; 
+}
+
+.customTable td {
+  background-color: #ffdab9; 
+}
+
+.customTable td[colspan="7"] {
+  background-color: coral;
+  border-radius: 0 0 10px 10px; 
+}
+
+.customTable th:first-child,
+.customTable td:first-child {
+  border-radius: 10px 0 0 0; 
+}
+
+.customTable th:last-child,
+.customTable td:last-child {
+  border-radius: 0 10px 0 0; 
+}

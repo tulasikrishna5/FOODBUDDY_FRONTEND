@@ -1,0 +1,31 @@
+.profile-card {
+    background-color: #F08080; /* Coral color */
+    color: #fff; /* Text color */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .card-header {
+    text-align: center;
+  }
+  
+  .card-body {
+    margin-top: 20px;
+  }
+  
+  .card-body p {
+    margin-bottom: 10px;
+  }
+  
+  .logo {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  

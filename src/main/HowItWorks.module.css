@@ -1,0 +1,31 @@
+.stepsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.step {
+  width: calc(50% - 20px); /* Adjust the width of each card */
+  margin-bottom: 20px;
+}
+
+.step h2 {
+  margin-bottom: 10px;
+}
+
+.stepContent {
+  display: flex;
+  align-items: center;
+}
+
+.step p {
+  margin-left: 10px;
+}
+
+.stepImage {
+  width: 150px; 
+  
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px; 
+}
