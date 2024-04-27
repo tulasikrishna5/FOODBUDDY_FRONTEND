@@ -121,7 +121,7 @@ export default function RestaurantOwnerRegistration() {
             <MDBInput wrapperClass='mb-4' label='Name' size='lg'id="fullname" value={formData.fullname} onChange={handleChange} required/>
             <MDBInput wrapperClass='mb-4' label='Restaurant Name' size='lg'id="restaurantname" value={formData.restaurantname} onChange={handleChange} required/>
             <MDBInput wrapperClass='mb-4' label='Email' size='lg'  type="email" id="email" value={formData.email} onChange={handleChange} required />
-            <MDBInput wrapperClass='mb-4' label='Password' size='lg' type="password" id="password" value={formData.password} onChange={handleChange} pattern="/^(?=.*\d)(?=.*[a-zA-Z])(?=.*\W).{8,}$/" required/>
+            <MDBInput wrapperClass='mb-4' label='Password' size='lg' type="password" id="password" value={formData.password} onChange={handleChange}  required/>
             <MDBInput wrapperClass='mb-4' label='Date Of Birth' size='lg' type="date" id="dateofbirth" value={formData.dateofbirth} onChange={handleChange} required/>
 
             <div className='d-md-flex justify-content-start align-items-center mb-4'>

@@ -48,7 +48,7 @@ export default function CustomerRegistration() {
         try 
         {
           const response = await axios.post(`${config.url}/insertcustomer`, formData);
-          navigate("/customerhome");
+          navigate("/customerlogin");
           if (response.status === 200) 
           {
             

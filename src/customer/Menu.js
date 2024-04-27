@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styles from './Menu.module.css';
-import config from '../config'
-export default function Menu() {
+import config from '../config';
+
+const Menu = () => {
   const { restaurantname } = useParams();
   const [customerData, setCustomerData] = useState(null);
   const [items, setItems] = useState([]);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-
   useEffect(() => {
     const storedCustomerData = localStorage.getItem('customer');
     if (storedCustomerData) {
@@ -17,7 +17,8 @@ export default function Menu() {
       setCustomerData(parsedCustomerData);
     }
   }, []);
-  const fetchMenu = async () => {
+  // Memoize fetchMenu using useCallback
+  const fetchMenu = useCallback(async () => {
     try {
       if (!restaurantname) {
         setError('Restaurant name is missing');
@@ -30,17 +31,16 @@ export default function Menu() {
       console.error('Error fetching menu:', error);
       setError('Error fetching menu data');
     }
-  };
+  }, [restaurantname]); // Include 'restaurantname' in the dependencies array
 
   useEffect(() => {
-   
-    fetchMenu();
-  }, [restaurantname]);
+    fetchMenu(); // Invoke fetchMenu when component mounts or 'restaurantname' changes
+  }, [fetchMenu]); // Pass fetchMenu as a dependency to useEffect
 
   const addtocart = async (itemid, itemname, pic, itemnumber, customeremail, price) => {
     try {
       const response = await axios.post(`${config.url}/addtocart`, { itemid, itemname, pic, itemnumber, price, customeremail });
-      fetchMenu();
+      fetchMenu(); // Refetch menu after adding to cart
       setMessage(response.data);
       setError('');
     } catch (error) {
@@ -88,4 +88,6 @@ export default function Menu() {
       </div>
     </div>
   );
-}
+};
+
+export default Menu;
