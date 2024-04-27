@@ -49,8 +49,8 @@ export default function RestaurantHome() {
       <section id={styles.end}> 
         <div className={styles.bar}> 
           <div><h4>FoodBuddy</h4></div>
-          <div><a href='#'>Follow us On Instagram</a></div>
-          <div><a href='#'>FaceBook</a></div>
+          <div><a href='/'>Follow us On Instagram</a></div>
+          <div><a href='/'>FaceBook</a></div>
           <div><h4><strong>&copy;FoodBuddyLimited</strong></h4></div>
         </div>
       </section>
