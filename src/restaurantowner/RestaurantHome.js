@@ -1,5 +1,5 @@
 import React from 'react';
-import RestaurantOwnerNavBar from './RestaurantOwnerNavBar';
+
 import { Card, CardContent, Typography } from '@mui/material';
 import styles from './RestaurantHome.module.css'; 
 
