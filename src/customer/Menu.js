@@ -10,7 +10,13 @@ const Menu = () => {
   const [items, setItems] = useState([]);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-
+  useEffect(() => {
+    const storedCustomerData = localStorage.getItem('customer');
+    if (storedCustomerData) {
+      const parsedCustomerData = JSON.parse(storedCustomerData);
+      setCustomerData(parsedCustomerData);
+    }
+  }, []);
   // Memoize fetchMenu using useCallback
   const fetchMenu = useCallback(async () => {
     try {
