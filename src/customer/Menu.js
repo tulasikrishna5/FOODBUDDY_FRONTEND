@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styles from './Menu.module.css';
-import config from '../config'
+import config from '../config';
+
 export default function Menu() {
   const { restaurantname } = useParams();
   const [customerData, setCustomerData] = useState(null);
@@ -17,6 +18,7 @@ export default function Menu() {
       setCustomerData(parsedCustomerData);
     }
   }, []);
+
   const fetchMenu = async () => {
     try {
       if (!restaurantname) {
@@ -33,14 +35,13 @@ export default function Menu() {
   };
 
   useEffect(() => {
-   
-    fetchMenu();
-  }, [restaurantname]);
+    fetchMenu(); // This useEffect runs whenever `restaurantname` changes
+  }, [restaurantname]); // `restaurantname` is a dependency for this useEffect
 
   const addtocart = async (itemid, itemname, pic, itemnumber, customeremail, price) => {
     try {
       const response = await axios.post(`${config.url}/addtocart`, { itemid, itemname, pic, itemnumber, price, customeremail });
-      fetchMenu();
+      fetchMenu(); // Refetch menu after adding to cart
       setMessage(response.data);
       setError('');
     } catch (error) {
