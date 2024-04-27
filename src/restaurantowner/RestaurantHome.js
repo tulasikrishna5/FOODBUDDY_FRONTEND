@@ -1,13 +1,11 @@
 import React from 'react';
-import RestaurantOwnerNavBar from './RestaurantOwnerNavBar';
+
 import { Card, CardContent, Typography } from '@mui/material';
 import styles from './RestaurantHome.module.css'; 
 
 export default function RestaurantHome() {
  
-  const presentOrders = 15; 
-  const totalSales = "₹1500";
-  const averageOrderValue = "₹100"; 
+  
 
   const popularDishes = [
     { name: "Pizza", image: "https://www.foodandwine.com/thmb/Wd4lBRZz3X_8qBr69UOu2m7I2iw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg" },
@@ -51,8 +49,8 @@ export default function RestaurantHome() {
       <section id={styles.end}> 
         <div className={styles.bar}> 
           <div><h4>FoodBuddy</h4></div>
-          <div><a href='#'>Follow us On Instagram</a></div>
-          <div><a href='#'>FaceBook</a></div>
+          <div><a href='/'>Follow us On Instagram</a></div>
+          <div><a href='/'>FaceBook</a></div>
           <div><h4><strong>&copy;FoodBuddyLimited</strong></h4></div>
         </div>
       </section>

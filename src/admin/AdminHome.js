@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import AdminNavBar from './AdminNavBar';
+
 import styles from './AdminHome.module.css';
-import BrowseRestaurants from '../customer/BrowseRestaurants';
+
 import axios from 'axios';
 import config from '../config'
 export default function AdminHome() {

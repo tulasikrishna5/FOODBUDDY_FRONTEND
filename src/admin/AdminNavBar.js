@@ -1,12 +1,12 @@
-import Button from 'react-bootstrap/Button';
+
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
+
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { BsFillHouseFill, BsFillPeopleFill } from "react-icons/bs";
 import { GrRestaurant } from "react-icons/gr";
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import AdminHome from './AdminHome';
 import ViewCustomers from './ViewCustomers';
 import DeleteCustomer from './DeleteCustomer';

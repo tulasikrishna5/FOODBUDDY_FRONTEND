@@ -3,7 +3,7 @@ import styles from './Home.module.css';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import MainNavBar from './MainNavBar';
+
 import Carousel1 from './images/bread.jpg'; 
 import Carousel2 from './images/set.jpg'; 
 import Carousel3 from './images/Caraousel3.jpg'; 
@@ -130,8 +130,8 @@ export default function Home() {
             <section id={styles.end}> 
                 <div className={styles.bar}> 
                     <div><h4>FoodBuddy</h4></div>
-                    <div><a href='#'>Follow us On Instagram</a></div>
-                    <div><a href='#'>FaceBook</a></div>
+                    <div><a href='/'>Follow us On Instagram</a></div>
+                    <div><a href='/'>FaceBook</a></div>
                     <div><h4><strong>&copy;FoodBuddyLimited</strong></h4></div>
                 </div>
             </section>

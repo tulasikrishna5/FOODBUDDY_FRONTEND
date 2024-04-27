@@ -90,4 +90,8 @@ const Menu = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Menu;
+=======
+export default Menu;
+>>>>>>> 7dadc3b334125338a3aa62c357880fa2d19f0d1b

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './AboutUs.module.css'; 
-import MainNavBar from './MainNavBar';
+
 
 export default function AboutUs() {
   return (

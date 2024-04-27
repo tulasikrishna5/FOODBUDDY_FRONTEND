@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './HowItWorks.module.css'; // Import module.css file for styling
-import MainNavBar from './MainNavBar';
+
 
 import RestaurantImage from './images/restaurant.jpeg';
 import DishImage from './images/dish.jpeg';

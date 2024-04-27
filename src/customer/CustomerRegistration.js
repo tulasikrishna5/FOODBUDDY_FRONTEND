@@ -8,9 +8,7 @@ import {
   MDBCardImage,
   MDBRow,
   MDBCol,
-  MDBInput,
-  MDBRadio,
-  MDBSelect
+  MDBInput 
 }
 from 'mdb-react-ui-kit';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
