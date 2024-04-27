@@ -3,7 +3,7 @@ import styles from './Home.module.css';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import MainNavBar from './MainNavBar';
+
 import Carousel1 from './images/bread.jpg'; 
 import Carousel2 from './images/set.jpg'; 
 import Carousel3 from './images/Caraousel3.jpg'; 
