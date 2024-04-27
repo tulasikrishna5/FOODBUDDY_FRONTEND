@@ -5,9 +5,7 @@ import styles from './RestaurantHome.module.css';
 
 export default function RestaurantHome() {
  
-  const presentOrders = 15; 
-  const totalSales = "₹1500";
-  const averageOrderValue = "₹100"; 
+  
 
   const popularDishes = [
     { name: "Pizza", image: "https://www.foodandwine.com/thmb/Wd4lBRZz3X_8qBr69UOu2m7I2iw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/classic-cheese-pizza-FT-RECIPE0422-31a2c938fc2546c9a07b7011658cfd05.jpg" },
