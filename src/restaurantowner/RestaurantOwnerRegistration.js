@@ -16,7 +16,7 @@ import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function RestaurantOwnerRegistration() {
   const [formData, setFormData] = useState({
@@ -70,7 +70,7 @@ export default function RestaurantOwnerRegistration() {
           'Content-Type': 'multipart/form-data' // Set content type for FormData
         }
       });
-
+      
       if (response.status === 200) {
         setFormData({
           fullname: '',
@@ -86,17 +86,19 @@ export default function RestaurantOwnerRegistration() {
         
         fileInputRef.current.value = '';
       }
-      toast.success(`${response.data}, Please Check your mail 😊`,
+     
+     
+      setMessage(response.data);
+      setError(''); 
+      console.log(message)
+      toast.success(`Registration Successful, Please Check your mail 😊`,
       {
         postition:"top-right"
       })
-      setMessage(response.data);
-      setError(''); 
       setTimeout(() => {
         navigate("/restaurantlogin");
       }, 3000);
-      setMessage(response.data);
-      setError('');
+      
     } 
     catch (error) 
     { toast.error(`Try Again!, The email id or Phone number already exists`,
@@ -110,7 +112,11 @@ export default function RestaurantOwnerRegistration() {
   return (
     <div>
 
-{ message ? <h4 align="center">{message}</h4> : <h4 align="center">{error}</h4>} 
+<ToastContainer position="top-right" />
+       {
+        error?<h3 align="center">Email or Phone number already exists</h3>:<h2> </h2>
+       }
+      
 <MDBContainer fluid className='bg-red'>
 
 <MDBRow className='d-flex justify-content-center align-items-center h-100'>
@@ -138,7 +144,7 @@ export default function RestaurantOwnerRegistration() {
             <MDBInput wrapperClass='mb-4' label='Date Of Birth' size='lg' type="date" id="dateofbirth" value={formData.dateofbirth} onChange={handleChange} required/>
 
             <div className='d-md-flex justify-content-start align-items-center mb-4'>
-  <h6 className="fw-bold mb-0 me-4">Gender: </h6>
+  
   <select id="gender" value={formData.gender} onChange={handleChange} required>
   <option value="">Select Gender</option>
             <option value="male">Male</option>

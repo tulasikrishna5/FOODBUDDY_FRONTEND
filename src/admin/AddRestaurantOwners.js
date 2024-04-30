@@ -3,6 +3,7 @@ import axios from 'axios';
 import { MDBBtn, MDBContainer, MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
 import { useNavigate } from 'react-router-dom';
 import config from '../config'
+import { toast } from 'react-toastify';
 export default function AddRestaurantOwners() {
   const [formData, setFormData] = useState({
     fullname: '',
@@ -60,15 +61,27 @@ export default function AddRestaurantOwners() {
           contact: '',
           file: null
         });
-        navigate('/adminhome');
+        
+      
         fileInputRef.current.value = ''; 
       }
-
+      toast.success(`Restaurant Owner added Successfully`,
+      {
+        postition:"top-right"
+      })
+      setTimeout(() => {
+        navigate("/adminhome");
+      }, 3000);
       setMessage(response.data);
       setError('');
     } catch (error) {
+
       setError(error.response.data);
       setMessage('');
+      toast.error(`Try Again!, The email id or Phone number already exists`,
+      {
+        postition:"top-right"
+      })
     }
   };
 

@@ -62,7 +62,8 @@ export default function CustomerRegistration() {
       
       setMessage(response.data);
       setError(''); 
-      toast.success(`${message}, Please Check your mail 😊`,
+      console.log(message)
+      toast.success(`${response.data}, Please Check your mail 😊`,
       {
         postition:"top-right"
       })

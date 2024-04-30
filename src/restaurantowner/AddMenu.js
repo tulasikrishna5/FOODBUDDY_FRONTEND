@@ -83,7 +83,7 @@ export default function AddMenu() {
 
         setMessage(response.data);
         setError('');
-
+        console.log(message)
         setTimeout(() => {
           navigate("/viewmenu");
         }, 3000);
