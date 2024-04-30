@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+
 import { BsFillHouseDoorFill, BsPinMapFill, BsCartFill, BsFillPersonFill } from 'react-icons/bs';
 import { IoRestaurant } from 'react-icons/io5';
 import { Route, Routes, useNavigate } from 'react-router-dom';
@@ -23,7 +24,8 @@ export default function CustomerNavBar() {
   const handleLogout = () => {
     localStorage.removeItem('isCustomerLoggedIn');
     localStorage.removeItem('customer');
-    navigate('/customerlogin'); // Navigate to customerlogin page
+    navigate('/customerlogin'); 
+    window.location.reload()
   };
 
   const [customerData, setCustomerData] = useState(null);
@@ -66,7 +68,7 @@ export default function CustomerNavBar() {
               </Nav.Link>
               <NavDropdown title={<><BsFillPersonFill /> Profile</>} id="navbarScrollingDropdown" className="profile-dropdown-left">
                 <NavDropdown.Item href="/profile">View Profile</NavDropdown.Item>
-                <NavDropdown.Item href="/forgotpassword">Change<br/> Password</NavDropdown.Item>
+                <NavDropdown.Item href="/forgotpassword">Change Password</NavDropdown.Item>
                 <NavDropdown.Item>
                   <button className="logoutButton" onClick={handleLogout}>
                     Logout
@@ -80,6 +82,7 @@ export default function CustomerNavBar() {
       </Navbar>
       <Routes>
         <Route path="/customerhome" element={<CustomerHome />} />
+        <Route path="/" element={<CustomerHome />} />
         <Route path="/browserestaurants" element={<BrowseRestaurants />} />
         <Route path="/menu/:restaurantname" element={<Menu />} />
         <Route path="/success" element={<Success/>} />

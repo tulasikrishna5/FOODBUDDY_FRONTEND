@@ -4,6 +4,7 @@ import styles from './AdminHome.module.css';
 
 import axios from 'axios';
 import config from '../config'
+import { ToastContainer, toast } from 'react-toastify';
 export default function AdminHome() {
   const [feedbackIndex, setFeedbackIndex] = useState(0);
   const [restaurants, setRestaurants] = useState([]);
@@ -25,6 +26,10 @@ export default function AdminHome() {
 
   useEffect(() => {
     fetchRestaurants();
+    toast(`Welcome Admin`, {
+      position: "top-right",
+      toastClassName: "custom-toast"
+    });
   }, []);
 
   const handleNextFeedback = () => {
@@ -37,6 +42,8 @@ export default function AdminHome() {
 
   return (
     <div>
+            <ToastContainer position="top-right" />
+
       <br />
       <br />
       <section id="inquires" className={styles.section}>

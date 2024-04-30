@@ -103,10 +103,12 @@ export default function Home() {
             </section>
             <br/>
             <br/>
+            
+            
             <section id="how">
             <br/>
-            <br/><br/>
             <br/>
+            <br/><br/>
                 <h1 align="center" style={{ fontFamily: "sans-serif", color: "#FF6347", fontWeight: "bold", fontSize: "35px", textDecoration: "underline" }}>How It Works</h1>
                 <HowItWorks/>
             </section>
@@ -120,10 +122,11 @@ export default function Home() {
             </section>
             <br/>
             <br/>
-            <section id="faq">
             <br/>
             <br/>
             <br/><br/>
+            <section id="faq">
+          
                 <h1 align="center" style={{ fontFamily: "sans-serif", color: "#FF6347", fontWeight: "bold", fontSize: "35px", textDecoration: "underline" }}>Frequently Asked Questions</h1>
                 <FAQ/>
             </section>

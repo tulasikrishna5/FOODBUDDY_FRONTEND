@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
 import { Link } from 'react-router-dom';
-
-// import CustomerNavBar from './CustomerNavBar';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './CustomerHome.css';
 
 const featuredRestaurants = [
   { id: 1, name: 'RoseMarys', image: "https://media.architecturaldigest.com/photos/60e33c2983afe4fd18137304/master/w_1600%2Cc_limit/rosemarys_0421_lizclayman_211.jpg", description: 'THE ULTIMATE DESTINATION FOR BBQ LOVERS.', popularDishes: ['Smoked Ribs', 'Grilled Chicken Skewers', 'Brisket Platter'] },
@@ -16,23 +17,24 @@ const popularDishes = [
 ];
 
 export default function CustomerHome() {
-  const [customerData, setcustomerData] = useState(null);
+ 
 
   useEffect(() => {
     const storedcustomerData = localStorage.getItem('customer');
     if (storedcustomerData) {
       const parsedcustomerData = JSON.parse(storedcustomerData);
-      setcustomerData(parsedcustomerData);
+      
+
+      toast(`Welcome ${parsedcustomerData.fullname}`, {
+        position: "top-right",
+        toastClassName: "custom-toast"
+      });
     }
   }, []);
 
   return (
     <div>
-      {customerData && (
-        <div>
-          <h4>Welcome {customerData.fullname}</h4>
-        </div>
-      )}
+      <ToastContainer position="top-right" />
 
       <br/><br/>
       <h1 align="center" style={{ fontFamily: "sans-serif", color: "#FF6347", fontWeight: "bold", fontSize: "35px", textDecoration: "underline" }}>Top 3 Restaurants</h1>

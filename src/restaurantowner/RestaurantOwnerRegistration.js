@@ -16,6 +16,7 @@ import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function RestaurantOwnerRegistration() {
   const [formData, setFormData] = useState({
@@ -82,14 +83,26 @@ export default function RestaurantOwnerRegistration() {
           contact: '',
           file: null
         });
-        navigate("/restaurantlogin")
+        
         fileInputRef.current.value = '';
       }
+      toast.success(`${response.data}, Please Check your mail 😊`,
+      {
+        postition:"top-right"
+      })
+      setMessage(response.data);
+      setError(''); 
+      setTimeout(() => {
+        navigate("/restaurantlogin");
+      }, 3000);
       setMessage(response.data);
       setError('');
     } 
     catch (error) 
+    { toast.error(`Try Again!, The email id or Phone number already exists`,
     {
+      postition:"top-right"
+    })
       setError(error.response.data);
       setMessage('');
     }
@@ -145,8 +158,8 @@ export default function RestaurantOwnerRegistration() {
             
 
             <div className="d-flex justify-content-end pt-3">
-              <MDBBtn color='light' size='lg'>Reset all</MDBBtn>
-              <MDBBtn className='ms-2' color='danger' size='lg'>Submit form</MDBBtn>
+              <MDBBtn color='light' size='lg'>Clear all</MDBBtn>
+              <MDBBtn className='ms-2' color='danger' size='lg'>Register</MDBBtn>
             </div>
 
             </form>

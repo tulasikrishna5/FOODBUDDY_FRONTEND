@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import styles from './AddMenu.module.css';
-import config from '../config'
+import config from '../config';
 
 export default function AddMenu() {
-  const [ownerdata, setOwnerData] = useState('');
+  const [ownerData, setOwnerData] = useState('');
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -24,9 +25,9 @@ export default function AddMenu() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const OwnerData = localStorage.getItem('restaurantOwner');
-    if (OwnerData) {
-      const parsedOwnerData = JSON.parse(OwnerData);
+    const storedOwnerData = localStorage.getItem('restaurantOwner');
+    if (storedOwnerData) {
+      const parsedOwnerData = JSON.parse(storedOwnerData);
       setOwnerData(parsedOwnerData);
     }
   }, []);
@@ -43,12 +44,26 @@ export default function AddMenu() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if the pic URL exceeds 2000 characters
+    if (formData.pic.length > 2000) {
+      setError('Picture URL must not exceed 2000 characters.');
+      setMessage('');
+      toast.error(`${error}`, {
+        position: "top-right"
+      });
+      return
+
+      
+    }
+
     try {
       const response = await axios.post(`${config.url}/additem`, {
         ...formData,
-        restaurantowner: ownerdata,
-        Restaurantname: ownerdata.restaurantname
+        restaurantowner: ownerData,
+        Restaurantname: ownerData.restaurantname
       });
+
       if (response.status === 200) {
         setFormData({
           name: '',
@@ -61,11 +76,27 @@ export default function AddMenu() {
           pic: '',
           restaurantowner: ''
         });
+
+        toast.success('Menu Item added Successfully', {
+          position: "top-right"
+        });
+
         setMessage(response.data);
         setError('');
-        navigate('/viewmenu');
+
+        setTimeout(() => {
+          navigate("/viewmenu");
+        }, 3000);
       }
     } catch (error) {
+      toast.error('Failed to add menu item. Please try again.', {
+        position: "top-right"
+      });
+      toast.error(`${error.response.data}`, {
+        position: "top-right"
+      });
+      
+      
       setError(error.response.data);
       setMessage('');
     }
@@ -73,18 +104,12 @@ export default function AddMenu() {
 
   return (
     <div className={styles.container}>
+            <ToastContainer position="top-right" />
+
       <h3 align="center">
         <u>Post a New Dish</u>
       </h3>
-      {message ? (
-        <h4 align="center" className={styles.successMessage}>
-          {message}
-        </h4>
-      ) : (
-        <h4 align="center" className={styles.errorMessage}>
-          {error}
-        </h4>
-      )}
+     
       <form onSubmit={handleSubmit}>
         <table className={styles.formTable}>
           <tbody>

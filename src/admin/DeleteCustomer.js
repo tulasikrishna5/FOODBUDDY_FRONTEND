@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './DeleteCustomer.module.css'; 
 // import AdminNavBar from './AdminNavBar';
 import config from '../config'
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function DeleteCustomer() {
   const [customers, setCustomers] = useState([]);
@@ -24,6 +25,9 @@ export default function DeleteCustomer() {
     try {
       await axios.delete(`${config.url}/deletecustomer/${email}`);
       fetchCustomers();
+      toast.success('Account Deleted', {
+        position: "top-right"
+      });
     } catch (error) {
       console.error(error.message);
     }
@@ -31,7 +35,8 @@ export default function DeleteCustomer() {
 
   return (
     <div className={styles.tableContainer}>
-       
+             <ToastContainer position="top-right" />
+
       <br/><br/>
       <h1 align="center" style={{ fontFamily: "sans-serif", color: "#FF6347", fontWeight: "bold", fontSize: "35px", textDecoration: "underline" }}>Our Customers</h1>
 

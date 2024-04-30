@@ -3,6 +3,7 @@ import axios from 'axios';
 import styles from './DeleteRestaurantOwner.module.css'; 
 // import AdminNavBar from './AdminNavBar';
 import config from '../config'
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function DeleteRestaurantOwner() {
   const [owners, setOwners] = useState([]);
@@ -24,6 +25,9 @@ export default function DeleteRestaurantOwner() {
     try {
       await axios.delete(`${config.url}/deleterestaurantowner/${email}`);
       fetchOwners();
+      toast.success('Account Deleted', {
+        position: "top-right"
+      });
     } catch (error) {
       console.error(error.message);
     }
@@ -31,7 +35,8 @@ export default function DeleteRestaurantOwner() {
 
   return (
     <div className={styles.tableContainer}>
-      
+            <ToastContainer position="top-right" />
+
       <br/><br/>
       <h1 align="center" style={{ fontFamily: "sans-serif", color: "#FF6347", fontWeight: "bold", fontSize: "35px", textDecoration: "underline" }}>Delete Restaurant Owners</h1>
 

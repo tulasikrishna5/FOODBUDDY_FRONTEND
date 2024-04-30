@@ -1,0 +1,38 @@
+/* Navbar styles */
+.navbar-custom {
+    background-color: #FF6347 !important;
+    height: 80px;
+  }
+  
+  .navbar-custom .nav-link {
+    color: #FFFFFF !important;
+  }
+  
+  .navbar-custom .nav-link:hover {
+    background-color: #F08080 !important;
+    color: #FFFFFF !important;
+  }
+  
+  .navbar-custom .dropdown-menu {
+    background-color: #FF6347 !important;
+  }
+  
+  .navbar-custom .dropdown-menu .dropdown-item {
+    color: #FFFFFF !important;
+  }
+  
+  .navbar-custom .dropdown-menu .dropdown-item:hover {
+    background-color: #F08080 !important;
+    color: #FFFFFF !important;
+  }
+  
+  /* Adjust profile dropdown to open towards the left */
+  .profile-dropdown-left .dropdown-menu {
+    right: 0 !important; /* Reset the right positioning */
+    left: auto !important; /* Ensure left positioning */
+  }
+  
+  .profile-dropdown-left .dropdown-menu.show {
+    margin-left: -180px; /* Adjust this value as needed to position the dropdown */
+  }
+  

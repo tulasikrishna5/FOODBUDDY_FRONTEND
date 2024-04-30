@@ -32,6 +32,7 @@ export default function CustomerLogin({ onCustomerLogin }) {
 
         localStorage.setItem('customer', JSON.stringify(response.data));
         navigate("/customerhome");
+        window.location.reload()
       } else {
         setMessage("");
         setError("Login Failed");

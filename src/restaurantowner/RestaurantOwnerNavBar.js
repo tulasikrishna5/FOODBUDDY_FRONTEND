@@ -10,6 +10,7 @@ import AddMenu from './AddMenu';
 import Profile from './Profile';
 import ViewMenu from './ViewMenu';
 import ForgotPassword from './ForgotPassword';
+import './RestaurantOwnerNavBar.css'; // Import CSS file
 
 export default function RestaurantOwnerNavBar() {
   const navigate = useNavigate();
@@ -31,14 +32,14 @@ export default function RestaurantOwnerNavBar() {
             <Nav className="mx-auto" style={{ maxHeight: '100px' }} navbarScroll>
               <Nav.Link href="/restaurantownerhome">
                 <BsFillHouseFill /> Home
-              </Nav.Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </Nav.Link>
               <NavDropdown title={<><BsReverseLayoutTextWindowReverse /> Menu</>}>
                 <NavDropdown.Item href="/viewmenu">View Menu</NavDropdown.Item>
                 <NavDropdown.Item href="/addmenu">Add Menu Item</NavDropdown.Item>
               </NavDropdown>
             </Nav>
 
-            <Nav className="ms-auto pe-5"> {/* Use ms-auto and pe-5 for additional left margin */}
+            <Nav className="ms-auto pe-5">
               <NavDropdown title={<><BsFillPersonFill /> Profile</>} id="navbarScrollingDropdown">
                 <NavDropdown.Item href="/restaurantprofile">View Profile</NavDropdown.Item>
                 <NavDropdown.Item href="/forgotpassword">Change Password</NavDropdown.Item>

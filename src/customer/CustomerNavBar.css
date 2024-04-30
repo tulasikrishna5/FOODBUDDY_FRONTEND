@@ -1,12 +1,4 @@
-
-.bg-orange {
-  background-color: #fcbf4ffa !important;
-}
-
-.bg-orange .nav-link:hover {
-  color: white !important;
-}
-
+/* Navbar styles */
 .navbar-custom {
   background-color: #FF6347 !important;
   height: 80px;
@@ -34,10 +26,12 @@
   color: #FFFFFF !important;
 }
 
-.navbar-nav .nav-item .dropdown:hover .dropdown-menu {
-  display: block;
-}
+/* Adjust profile dropdown to open towards the left */
 .profile-dropdown-left .dropdown-menu {
-  right: auto !important;
-  left: 0 !important;
+  right: 0 !important; /* Reset the right positioning */
+  left: auto !important; /* Ensure left positioning */
+}
+
+.profile-dropdown-left .dropdown-menu.show {
+  margin-left: -180px; /* Adjust this value as needed to position the dropdown */
 }

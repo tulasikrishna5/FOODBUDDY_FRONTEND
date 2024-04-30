@@ -1,57 +1,96 @@
-.bg-orange {
-  background-color: #fcbf4ffa !important; 
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.bg-orange .nav-link:hover {
-  color: white !important; 
-}
-
-
+/* Navbar Styles */
 .navbar-custom {
-  background-color: #FF6347 !important; 
-  height: 80px; 
+  background-color: #FF6347;
+  height: 80px;
 }
 
-
-.navbar-custom .nav-link {
-  color: #FFFFFF !important; 
+.navbar-custom .navbar-brand {
+  font-size: 24px;
+  color: #FFFFFF;
+  font-weight: bold;
 }
 
-
-.navbar-custom .nav-link:hover {
-  background-color: #F08080 !important; 
-  color: #FFFFFF !important; 
+.navbar-custom .navbar-nav .nav-link {
+  font-size: 18px;
+  color: #FFFFFF;
+  padding: 15px;
+  text-decoration: none;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
+.navbar-custom .navbar-nav .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  transform: translateY(-3px); /* Move link up slightly on hover */
+}
 
 .navbar-custom .dropdown-menu {
-  background-color: #FF6347 !important; 
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  z-index: 1000;
+  padding: 8px 0;
+  background-color: #FF6347;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.navbar-custom .dropdown-menu .dropdown-item {
-  color: #FFFFFF !important; 
+.navbar-custom .dropdown-item {
+  color: #FFFFFF;
+  transition: background-color 0.3s ease;
 }
 
-
-.navbar-custom .dropdown-menu .dropdown-item:hover {
-  background-color: #F08080 !important; 
-  color: #FFFFFF !important;
+.navbar-custom .dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
 }
 
-.navbar-centered-links {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Container Styles */
+.container-fluid {
+  padding: 0 20px;
 }
 
-.navbar-centered-links .nav-link {
-  margin: 0 10px;
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar-custom .navbar-nav .nav-link {
+    font-size: 16px;
+  }
 }
+
+/* Utility Classes */
+.text-orange {
+  color: #FF6347;
+}
+
+.bg-orange {
+  background-color: #FF6347;
+}
+
+.bg-light-orange {
+  background-color: #F08080;
+}
+
+/* Additional Custom Styles */
 .nav-link-large {
-  font-size: 20px; 
-  margin-right: 20px; 
+  font-size: 20px;
+  margin-right: 20px;
 }
 
-.navbar-nav .nav-item .dropdown:hover .dropdown-menu {
+/* Styling for Login Dropdown */
+.navbar-custom .nav-link-dropdown {
+  cursor: pointer;
+  position: relative;
+}
+
+.navbar-custom .nav-link-dropdown:hover .dropdown-menu {
   display: block;
 }

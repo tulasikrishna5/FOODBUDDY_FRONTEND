@@ -1,6 +1,6 @@
 const config = 
 {
-    url: 'https://foodbuddy-backend-jp7b.onrender.com'
+    url: 'http://localhost:2032'
 };
 
 export default config;
