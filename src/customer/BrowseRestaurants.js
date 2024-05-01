@@ -6,7 +6,7 @@ import config from '../config'
 export default function BrowseRestaurants() {
   const [restaurants, setRestaurants] = useState([]);
   
-  const [customer , setCustomer] = useState();
+  
   const fetchRestaurants = async () => {
     try {
       const response = await axios.get(`${config.url}/viewrestaurants`);
@@ -17,12 +17,9 @@ export default function BrowseRestaurants() {
   };
 
   useEffect(() => {
-    const storedCustomerData = localStorage.getItem('customer');
-    if (storedCustomerData) {
-      const parsedCustomerData = JSON.parse(storedCustomerData);
-      setCustomer(parsedCustomerData);
+   
       fetchRestaurants(); // Call fetchRestaurants after setting customer data
-    }
+    
   }, []);
   return (
     <div className={styles['restaurant-container']}>
