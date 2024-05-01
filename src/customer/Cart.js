@@ -1,8 +1,13 @@
+// Cart.js
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { loadStripe } from '@stripe/stripe-js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import config from '../config';
 import styles from './Cart.module.css';
-import {loadStripe} from '@stripe/stripe-js';
-import config from '../config'
+
 export default function Cart() {
     const [customerData, setCustomerData] = useState(null);
     const [cartItems, setCartItems] = useState([]);
@@ -22,7 +27,7 @@ export default function Cart() {
                 try {
                     const response = await axios.get(`${config.url}/viewcart/${customerData.email}`);
 
-                    if (response && response.data && Array.isArray(response.data)) {
+                    if (response.data && Array.isArray(response.data)) {
                         const itemsFromDB = response.data;
                         const itemsWithQuantity = itemsFromDB.map(item => ({
                             ...item,
@@ -47,7 +52,7 @@ export default function Cart() {
             await axios.get(`${config.url}/updatequantity/${customerData.email}/${newQuantity}/${itemId}`);
             const updatedItemsResponse = await axios.get(`${config.url}/viewcart/${customerData.email}`);
 
-            if (updatedItemsResponse && updatedItemsResponse.data && Array.isArray(updatedItemsResponse.data)) {
+            if (updatedItemsResponse.data && Array.isArray(updatedItemsResponse.data)) {
                 const itemsFromDB = updatedItemsResponse.data;
                 const itemsWithQuantity = itemsFromDB.map(item => ({
                     ...item,
@@ -92,34 +97,48 @@ export default function Cart() {
         return cartItems.reduce((total, item) => total + item.price * item.count, 0).toFixed(2);
     };
 
-    const handleOrderClick = async() => {
+    const handleOrderClick = async () => {
+        toast(`Use this 4000 0035 6000 0008 card number for order`, {
+            position: "top-right"
+        });
+
         localStorage.setItem('order', JSON.stringify(cartItems));
+
         const stripe = await loadStripe("pk_test_51P9uJISDSdxPQtHGE5F9TOMmczHAnFRKEA39KZHGzqBZ7q6DreyrUmHf6fMq9cvOEbtHyUHJl1EOWJYv2BvNOavN00kQAjQKdw");
         const body = {
-            products:cartItems
-
-        }
+            products: cartItems
+        };
         const headers = {
-            "Content-Type":"application/json"
-        }
-        const response = await fetch(`${config.url}/create-checkout-session`,{
-            method:"POST",
-            headers:headers,
-            body:JSON.stringify(body)
+            "Content-Type": "application/json"
+        };
 
-        })
-        const session = await response.json();
+        setTimeout(async () => {
+            try {
+                const response = await fetch(`${config.url}/create-checkout-session`, {
+                    method: "POST",
+                    headers: headers,
+                    body: JSON.stringify(body)
+                });
 
-        const result  = stripe.redirectToCheckout({
-            sessionId:session.id
-        });
-        if(result.error){
-            console.log(result.error);
-        }
+                const session = await response.json();
+
+                const result = await stripe.redirectToCheckout({
+                    sessionId: session.id
+                });
+
+                if (result.error) {
+                    console.log(result.error);
+                }
+            } catch (error) {
+                console.error('Error during checkout:', error);
+                toast.error('Failed to initiate checkout. Please try again.');
+            }
+        }, 3000);
     };
-    
+
     return (
         <div className={styles.container}>
+            <ToastContainer position="top-right" />
             <h3 className={styles.title}>Your Shopping Cart</h3>
             {error && <div className={styles.error}>{error}</div>}
             <div className={styles.cardContainer}>
