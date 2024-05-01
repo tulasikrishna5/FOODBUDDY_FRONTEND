@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import styles from './Menu.module.css';
 import config from '../config';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Menu = () => {
   const { restaurantname } = useParams();
@@ -41,9 +42,15 @@ const Menu = () => {
     try {
       const response = await axios.post(`${config.url}/addtocart`, { itemid, itemname, pic, itemnumber, price, customeremail });
       fetchMenu(); // Refetch menu after adding to cart
+      toast.success(`${response.data}`, {
+        position: "top-right"
+      });
       setMessage(response.data);
       setError('');
     } catch (error) {
+      toast.error(`${error.response.data}`, {
+        position: "top-right"
+      });
       setError(error.response.data);
       setMessage('');
     }
@@ -61,10 +68,12 @@ const Menu = () => {
 
   return (
     <div className={styles.menuContainer}>
+      <ToastContainer position="top-right" />
       <h3 className={styles.menuHeader}>Menu for {restaurantname}</h3>
 
-      {message && <h4 className={styles.message}>{message}</h4>}
-      {error && <h4 className={styles.error}>{error}</h4>}
+      {
+        error?<h3 align="center">{error}</h3>:message?<h2> </h2>:<h2> </h2>
+       }
 
       <div className={styles.cardContainer}>
         {items.map((item, index) => (

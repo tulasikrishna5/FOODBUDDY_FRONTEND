@@ -17,6 +17,7 @@ import Profile from './Profile';
 import ForgotPassword from './ForgotPassword';
 import './CustomerNavBar.css'; // Import custom CSS styles
 import UpdateProfile from './UpdateProfile';
+import ViewOrders from './ViewOrders';
 
 export default function CustomerNavBar() {
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ export default function CustomerNavBar() {
               <Nav.Link href="/browserestaurants">
                 <IoRestaurant /> Browse Restaurants
               </Nav.Link>
+              
             </Nav>
            
             <Nav className="ms-auto"> {/* Use ms-auto for left margin on the right-aligned items */}
@@ -69,6 +71,7 @@ export default function CustomerNavBar() {
               <NavDropdown title={<><BsFillPersonFill /> Profile</>} id="navbarScrollingDropdown" className="profile-dropdown-left">
                 <NavDropdown.Item href="/profile">View Profile</NavDropdown.Item>
                 <NavDropdown.Item href="/forgotpassword">Change Password</NavDropdown.Item>
+                <NavDropdown.Item href="/vieworders">Orders</NavDropdown.Item>
                 <NavDropdown.Item>
                   <button className="logoutButton" onClick={handleLogout}>
                     Logout
@@ -90,6 +93,7 @@ export default function CustomerNavBar() {
         <Route path="/failure" element={<Failure/>} />
         <Route path="/updateprofile" element={<UpdateProfile/>} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/vieworders" element={<ViewOrders/>}/>
         <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>

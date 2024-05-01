@@ -1,69 +1,159 @@
-import React, { useEffect} from 'react';
+import React, {  useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './CustomerHome.css';
 
-const featuredRestaurants = [
-  { id: 1, name: 'RoseMarys', image: "https://media.architecturaldigest.com/photos/60e33c2983afe4fd18137304/master/w_1600%2Cc_limit/rosemarys_0421_lizclayman_211.jpg", description: 'THE ULTIMATE DESTINATION FOR BBQ LOVERS.', popularDishes: ['Smoked Ribs', 'Grilled Chicken Skewers', 'Brisket Platter'] },
-  { id: 2, name: "Chettinad", image: "https://media-cdn.tripadvisor.com/media/photo-m/1280/15/4e/b6/00/restaurant-front.jpg", description: 'Authentic cuisine from around the world.', popularDishes: ['Pad Thai', 'Sushi Platter', 'Chicken Tikka Masala'] },
-  { id: 3, name: 'SweetGreen', image: "https://images.wondershare.com/edrawmind/articles2023/restaurant-organizational-chart/sweetgreen-restaurant.jpg", description: 'Fine dining experience with a view.', popularDishes: ['Lobster Thermidor', 'Filet Mignon', 'Truffle Risotto'] },
-];
+import axios from 'axios';
+import config from '../config';
+import styles from './CustomerHome.module.css';
 
-const popularDishes = [
-  { id: 1, name: 'French Fries',image:"https://www.recipetineats.com/wp-content/uploads/2022/09/Fries-with-rosemary-salt_1.jpg", description: 'Fried to Perfection' },
-  { id: 2, name: 'Onion dosa',image:"https://media-cdn.tripadvisor.com/media/photo-s/1c/b1/58/37/onion-dosa.jpg", description: 'A dosa with the fragrance of sauted Onions' },
-  { id: 3, name: 'Roasted Chicken',image:"https://ohsweetbasil.com/wp-content/uploads/honey-roasted-chicken-recipe-16.jpg", description: 'A dish roasted for perfect crispiness' },
-];
+
+
 
 export default function CustomerHome() {
  
+  const [restaurants, setRestaurants] = useState([]);
+  const [customer , setcustomer] = useState(null);
+  const [items, setItems] = useState([]);
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const fetchRestaurants = async () => {
+    try {
+      const response = await axios.get(`${config.url}/viewrestaurants`);
+      setRestaurants(response.data);
+    } catch (error) {
+      console.error(error.message);
+      
+    }
+  };
 
+  const fetchMenu = async () => {
+    try {
+      const response = await axios.get(`${config.url}/getmenu`);
+      setItems(response.data);
+      setError('');
+    } catch (error) {
+      console.error('Error fetching menu:', error);
+      setError('Error fetching menu data');
+    }
+  };
   useEffect(() => {
     const storedcustomerData = localStorage.getItem('customer');
     if (storedcustomerData) {
       const parsedcustomerData = JSON.parse(storedcustomerData);
-      
+      setcustomer(parsedcustomerData)
 
       toast(`Welcome ${parsedcustomerData.fullname}`, {
         position: "top-right",
         toastClassName: "custom-toast"
       });
+      fetchRestaurants();
+      fetchMenu();
     }
   }, []);
+  const addtocart = async (itemid, itemname, pic, itemnumber, customeremail, price) => {
+    try {
+      const response = await axios.post(`${config.url}/addtocart`, { itemid, itemname, pic, itemnumber, price, customeremail });
+      fetchMenu(); // Refetch menu after adding to cart
+      
+      toast.success(`${response.data}`, {
+        position: "top-right"
+      });
+      setMessage(response.data);
+      setError('');
+    } catch (error) {
+     
+      toast.error(`${error.response.data}`, {
+        position: "top-right"
+      });
+      setError(error.response.data);
+      setMessage('');
+    }
+  };
 
+  const getPriceColor = (price) => {
+    if (price < 10) {
+      return 'green';
+    } else if (price >= 10 && price < 20) {
+      return 'orange';
+    } else {
+      return 'red';
+    }
+  };
+
+  
   return (
     <div>
       <ToastContainer position="top-right" />
-
+      {
+        error?<h3 align="center">{error}</h3>:message?<h2> </h2>:<h2> </h2>
+       }
       <br/><br/>
-      <h1 align="center" style={{ fontFamily: "sans-serif", color: "#FF6347", fontWeight: "bold", fontSize: "35px", textDecoration: "underline" }}>Top 3 Restaurants</h1>
-      <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-        {featuredRestaurants.map(restaurant => (
-          <div key={restaurant.id} style={{ margin: '20px', width: '300px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)', borderRadius: '10px', padding: '20px', textAlign: 'center' }}>
-            <img src={restaurant.image} alt={restaurant.name} style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '10px 10px 0 0' }} />
-            <h2 style={{ fontSize: '1.5rem', margin: '10px 0' }}>{restaurant.name}</h2>
-            <p style={{ fontSize: '1rem', margin: '0' }}>{restaurant.description}</p>
-          </div>
-        ))}
+      <h2 style={{ fontFamily: "sans-serif", color: "#FF6347", fontWeight: "bold", fontSize: "24px", textDecoration: "underline" , textAlign: "center"}}>Top Restaurants</h2>
+      <div className={styles['card-container']}>
+       
+        {restaurants.length > 0 ? (
+          restaurants.map((restaurant, index) => (
+            <div className={styles.card} key={index}>
+              <h2 className={styles['restaurant-name']}>{restaurant.restaurantname}</h2>
+              <p className={styles.location}>
+                <strong>Location:</strong> {restaurant.location}
+              </p>
+              <div className={styles['image-container']}>
+                {restaurant.file.endsWith('.jpg') || restaurant.file.endsWith('.jpeg') || restaurant.file.endsWith('.png') ? (
+                  <img
+                    src={`${config.url}/restaurantimage/${restaurant.file}`}
+                    alt={restaurant.restaurantname}
+                    className={styles['restaurant-image']}
+                  />
+                ) : (
+                  <a href={`${config.url}/restaurantimage/${restaurant.file}`} className={styles['image-link']}>
+                    Click Here
+                  </a>
+                )}
+              </div>
+              <Link to={`/menu/${restaurant.restaurantname}`} className={styles['menu-button']} target="_blank" rel="noopener noreferrer">
+  View Menu
+</Link>
+            </div>
+          ))
+        ) : (
+          <p className={styles['no-restaurants']}>No restaurants found</p>
+        )}
       </div>
       
       <div style={{ marginTop: '40px', padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '10px', textAlign: 'center' }}>
         <h2 style={{ fontFamily: "sans-serif", color: "#FF6347", fontWeight: "bold", fontSize: "24px", textDecoration: "underline" }}>Popular Dishes in Your City</h2>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-          {popularDishes.map(dish => (
-            <div key={dish.id} style={{ marginBottom: '20px', padding: '15px', border: '1px solid #ccc', borderRadius: '10px', backgroundColor: '#fff' }}>
-              <img src={dish.image} alt={dish.name} style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '10px 10px 0 0' }} />
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '10px' }}>{dish.name}</h3>
-              <p style={{ fontSize: '1.1rem', margin: '0' }}>{dish.description}</p>
+        
+        <div className={styles.cardContainer}>
+        {items.map((item, index) => (
+          <div key={index} className={styles.card}>
+            <img src={item.pic} alt={item.name} className={styles.cardImgTop} />
+            <div className={styles.cardBody}>
+              <h5 className={styles.cardTitle}>{item.name}</h5>
+              <p className={styles.cardText}>{item.description}</p>
+              <p className={styles.cardType}>Type: {item.type}</p>
+              <p className={styles.cardDietType}>Diet Type: {item.Diettype}</p>
+              <p className={styles.cardPrice} style={{ color: getPriceColor(item.price) }}>
+                Price: {item.price}
+              </p>
+              <button className={styles.button} onClick={() => addtocart(item.itemid, item.name, item.pic, 1, customer.email, item.price)}>
+                Add To Cart
+              </button>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+        {items.length === 0 && <p>No menu items found</p>}
       </div>
-
-      <div style={{ textAlign: 'center', marginTop: '20px' }}>
+        
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '20px' }}>
         <Link to="/browserestaurants" style={{ textDecoration: 'none', backgroundColor: '#FF6347', color: 'white', padding: '10px 20px', borderRadius: '5px', fontSize: '18px' }}>Show More</Link>
       </div>
-    </div>
+      </div>
+
+     
+   
+    
   );
 }

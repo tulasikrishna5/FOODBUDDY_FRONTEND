@@ -93,6 +93,7 @@ export default function Cart() {
     };
 
     const handleOrderClick = async() => {
+        localStorage.setItem('order', JSON.stringify(cartItems));
         const stripe = await loadStripe("pk_test_51P9uJISDSdxPQtHGE5F9TOMmczHAnFRKEA39KZHGzqBZ7q6DreyrUmHf6fMq9cvOEbtHyUHJl1EOWJYv2BvNOavN00kQAjQKdw");
         const body = {
             products:cartItems
@@ -116,7 +117,7 @@ export default function Cart() {
             console.log(result.error);
         }
     };
-
+    
     return (
         <div className={styles.container}>
             <h3 className={styles.title}>Your Shopping Cart</h3>
